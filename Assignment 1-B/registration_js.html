@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Validation</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        input { margin: 5px 0; padding: 8px; width: 250px; display: block; }
+        #msg { color: red; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <form id="myForm">
+        <input type="text" placeholder="Full Name" id="name">
+        <input type="text" placeholder="User ID (8 characters)" id="uid">
+        <input type="email" placeholder="Email Address" id="email">
+        <input type="password" placeholder="Password" id="pass">
+        <input type="password" placeholder="Confirm Password" id="comm">
+        
+        <input type="button" id="btn" value="Register Now">
+    </form>
+
+    <p id="msg"></p>
+
+    <script>
+        document.getElementById('btn').onclick = function() {
+            // Get values
+            const name = document.getElementById('name').value;
+            const uid = document.getElementById('uid').value;
+            const pass = document.getElementById('pass').value;
+            const comm = document.getElementById('comm').value;
+            const msg = document.getElementById('msg');
+
+            // 1. Simple Regex: Check for exactly 8 letters/numbers
+            const idRegex = /^[a-zA-Z0-9]{8}$/;
+
+            // 2. Validation Logic
+            if (name === "" || uid === "" || pass === "") {
+                msg.innerText = "Error: All fields are required!";
+            } 
+            else if (!idRegex.test(uid)) {
+                msg.innerText = "Error: User ID must be exactly 8 characters!";
+            } 
+            else if (pass.length < 6) {
+                msg.innerText = "Error: Password must be at least 6 characters!";
+            } 
+            else if (pass !== comm) {
+                msg.innerText = "Error: Passwords do not match!";
+            } 
+            else {
+                msg.style.color = "green";
+                msg.innerText = "Success! Form is valid.";
+            }
+        };
+    </script>
+</body>
+</html>
